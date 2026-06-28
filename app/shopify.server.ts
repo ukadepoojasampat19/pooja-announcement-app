@@ -7,6 +7,13 @@ import {
 import { PrismaSessionStorage } from "@shopify/shopify-app-session-storage-prisma";
 import prisma from "./db.server";
 
+import dotenv from "dotenv";
+
+//import { connectDB } from "./lib/mongodb.server";
+console.log("Shopify server loaded");
+//connectDB();
+dotenv.config();
+
 const shopify = shopifyApp({
   apiKey: process.env.SHOPIFY_API_KEY,
   apiSecretKey: process.env.SHOPIFY_API_SECRET || "",

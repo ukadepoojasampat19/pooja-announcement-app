@@ -13,13 +13,15 @@ export default function AdditionalPage() {
           </s-link>
           .
         </s-paragraph>
+
         <s-paragraph>
-          To create your own page and have it show up in the app navigation, add
-          a page inside <code>app/routes</code>, and a link to it in the{" "}
-          <code>&lt;ui-nav-menu&gt;</code> component found in{" "}
-          <code>app/routes/app.jsx</code>.
+          To create your own page and have it show up in the app navigation,
+          add a page inside <code>app/routes</code>, and a link to it in the
+          <code> &lt;ui-nav-menu&gt; </code>
+          component found in <code>app/routes/app.tsx</code>.
         </s-paragraph>
       </s-section>
+
       <s-section slot="aside" heading="Resources">
         <s-unordered-list>
           <s-list-item>
@@ -27,7 +29,7 @@ export default function AdditionalPage() {
               href="https://shopify.dev/docs/apps/design-guidelines/navigation#app-nav"
               target="_blank"
             >
-              App nav best practices
+              App navigation best practices
             </s-link>
           </s-list-item>
         </s-unordered-list>
