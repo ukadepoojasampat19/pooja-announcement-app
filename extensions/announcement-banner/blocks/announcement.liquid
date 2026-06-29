@@ -1,0 +1,60 @@
+{% schema %}
+{
+  "name": "Announcement Banner",
+  "target": "section",
+  "settings": []
+}
+{% endschema %}
+
+<div id="announcement-banner">
+  Loading announcement...
+</div>
+
+<script>
+let announcements = [];
+let currentIndex = 0;
+
+async function loadAnnouncement() {
+  try {
+    const res = await fetch("/apps/announcements");
+    const result = await res.json();
+
+    announcements = result.data || [];
+
+    if (announcements.length > 0) {
+      showAnnouncement();
+      startRotation();
+    } else {
+      document.getElementById("announcement-banner").innerHTML =
+        "No announcements available";
+    }
+  } catch (err) {
+    console.log("Error loading announcements:", err);
+  }
+}
+
+function showAnnouncement() {
+  const item = announcements[currentIndex];
+
+  document.getElementById("announcement-banner").innerHTML = `
+    <div style="
+      background: black;
+      color: white;
+      padding: 10px;
+      text-align: center;
+      font-weight: bold;
+    ">
+      📢 ${item.title} - ${item.message}
+    </div>
+  `;
+}
+
+function startRotation() {
+  setInterval(() => {
+    currentIndex = (currentIndex + 1) % announcements.length;
+    showAnnouncement();
+  }, 3000);
+}
+
+loadAnnouncement();
+</script>
