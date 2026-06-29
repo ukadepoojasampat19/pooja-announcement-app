@@ -9,8 +9,14 @@ export default function Announcements() {
     shopId: "",
   });
 
+<<<<<<< HEAD
   const [announcements, setAnnouncements] = useState<any[]>([]);
 
+=======
+  const [announcements, setAnnouncements] = useState([]);
+
+  // FETCH DATA
+>>>>>>> d65b5b66b93eec5eaca344fe98d1f38b86f0cdb0
   const fetchAnnouncements = async () => {
     const res = await fetch("/api/announcements");
     const data = await res.json();
@@ -21,6 +27,10 @@ export default function Announcements() {
     fetchAnnouncements();
   }, []);
 
+<<<<<<< HEAD
+=======
+  // CREATE DATA
+>>>>>>> d65b5b66b93eec5eaca344fe98d1f38b86f0cdb0
   const submit = async () => {
     const res = await fetch("/api/announcements", {
       method: "POST",
@@ -31,6 +41,7 @@ export default function Announcements() {
     const result = await res.json();
 
     if (result.success) {
+<<<<<<< HEAD
       alert("Announcement Created!");
       setForm({
         title: "",
@@ -40,6 +51,12 @@ export default function Announcements() {
         shopId: "",
       });
       fetchAnnouncements();
+=======
+      alert("Announcement Created Successfully!");
+      fetchAnnouncements(); // refresh list
+    } else {
+      alert("Something went wrong!");
+>>>>>>> d65b5b66b93eec5eaca344fe98d1f38b86f0cdb0
     }
   };
 
@@ -49,6 +66,7 @@ export default function Announcements() {
       {/* HEADER */}
       <h1 style={{ marginBottom: 20 }}>📢 Announcement Dashboard</h1>
 
+<<<<<<< HEAD
       {/* FORM CARD */}
       <div style={{
         background: "white",
@@ -106,6 +124,42 @@ export default function Announcements() {
           </button>
         </div>
       </div>
+=======
+      {/* FORM */}
+      <input
+        placeholder="Title"
+        onChange={(e) => setForm({ ...form, title: e.target.value })}
+      />
+      <br /><br />
+
+      <input
+        placeholder="Message"
+        onChange={(e) => setForm({ ...form, message: e.target.value })}
+      />
+      <br /><br />
+
+      <input
+        type="datetime-local"
+        onChange={(e) => setForm({ ...form, startTime: e.target.value })}
+      />
+      <br /><br />
+
+      <input
+        type="datetime-local"
+        onChange={(e) => setForm({ ...form, endTime: e.target.value })}
+      />
+      <br /><br />
+
+      <input
+        placeholder="Shop ID"
+        onChange={(e) => setForm({ ...form, shopId: e.target.value })}
+      />
+      <br /><br />
+
+      <button onClick={submit}>Create Announcement</button>
+
+      <hr />
+>>>>>>> d65b5b66b93eec5eaca344fe98d1f38b86f0cdb0
 
       {/* LIST */}
       <h3>Existing Announcements</h3>
@@ -114,6 +168,7 @@ export default function Announcements() {
         <p>No announcements yet</p>
       ) : (
         announcements.map((item: any) => (
+<<<<<<< HEAD
           <div
             key={item._id}
             style={{
@@ -130,6 +185,12 @@ export default function Announcements() {
             <div style={{ fontSize: 12, color: "gray" }}>
               Shop: {item.shopId}
             </div>
+=======
+          <div key={item._id} style={{ border: "1px solid #ccc", margin: 10, padding: 10 }}>
+            <h4>{item.title}</h4>
+            <p>{item.message}</p>
+            <small>Shop: {item.shopId}</small>
+>>>>>>> d65b5b66b93eec5eaca344fe98d1f38b86f0cdb0
           </div>
         ))
       )}
