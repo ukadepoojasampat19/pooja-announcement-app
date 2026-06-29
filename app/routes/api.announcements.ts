@@ -2,7 +2,7 @@ import { connectDB } from "../lib/mongodb.server";
 import { Announcement } from "../models/announcement.model";
 
 export async function loader({ request }: any) {
-    try {
+  try {
     await connectDB();
 
     const url = new URL(request.url);
@@ -27,7 +27,6 @@ export async function action({ request }: any) {
     await connectDB();
 
     const body = await request.json();
-<<<<<<< HEAD
 
     console.log("REQUEST BODY:", body);
 
@@ -49,28 +48,3 @@ export async function action({ request }: any) {
     );
   }
 }
-
-
-=======
-
-    console.log("REQUEST BODY:", body);
-
-    const announcement = await Announcement.create(body);
-
-    return Response.json({
-      success: true,
-      announcement,
-    });
-  } catch (err: any) {
-    console.error("POST ERROR:", err);
-
-    return Response.json(
-      {
-        success: false,
-        error: err.message,
-      },
-      { status: 500 }
-    );
-  }
-}
->>>>>>> d65b5b66b93eec5eaca344fe98d1f38b86f0cdb0
