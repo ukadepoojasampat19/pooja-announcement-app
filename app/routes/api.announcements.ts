@@ -2,25 +2,49 @@ import { connectDB } from "../lib/mongodb.server";
 import { Announcement } from "../models/announcement.model";
 
 export async function loader({ request }: any) {
-  await connectDB();
+    try {
+    await connectDB();
 
-  const url = new URL(request.url);
-  const shopId = url.searchParams.get("shopId");
+    const url = new URL(request.url);
+    const shopId = url.searchParams.get("shopId");
 
-  const announcements = await Announcement.find({ shopId });
+    const data = await Announcement.find(shopId ? { shopId } : {});
 
-  return Response.json(announcements);
+    return Response.json({
+      success: true,
+      data,
+    });
+  } catch (error) {
+    return Response.json(
+      { success: false, message: "Failed to fetch announcements" },
+      { status: 500 }
+    );
+  }
 }
 
 export async function action({ request }: any) {
-  await connectDB();
+  try {
+    await connectDB();
 
-  const body = await request.json();
+    const body = await request.json();
 
-  const announcement = await Announcement.create(body);
+    console.log("REQUEST BODY:", body);
 
-  return Response.json({
-    success: true,
-    announcement,
-  });
+    const announcement = await Announcement.create(body);
+
+    return Response.json({
+      success: true,
+      announcement,
+    });
+  } catch (err: any) {
+    console.error("POST ERROR:", err);
+
+    return Response.json(
+      {
+        success: false,
+        error: err.message,
+      },
+      { status: 500 }
+    );
+  }
 }

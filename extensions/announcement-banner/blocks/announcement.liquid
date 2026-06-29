@@ -1,0 +1,45 @@
+{% schema %}
+{
+  "name": "Announcement Banner",
+  "target": "section",
+  "settings": []
+}
+{% endschema %}
+
+<div id="announcement-banner">
+  Loading announcement...
+</div>
+
+<script>
+async function loadAnnouncement() {
+  try {
+    const res = await fetch("/apps/announcements");
+    const data = await res.json();
+
+    if (data.data && data.data.length > 0) {
+      const latest = data.data[0];
+
+      document.getElementById("announcement-banner").innerHTML = `
+        <div style="
+          background: black;
+          color: white;
+          padding: 10px;
+          text-align: center;
+          font-weight: bold;
+        ">
+           ${latest.title} - ${latest.message}
+        </div>
+      `;
+    } else {
+      document.getElementById("announcement-banner").innerHTML =
+        "No announcements found";
+    }
+  } catch (err) {
+    console.log("Announcement error:", err);
+    document.getElementById("announcement-banner").innerHTML =
+      "Failed to load announcement";
+  }
+}
+
+loadAnnouncement();
+</script>
